@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Redirecting to Page A</title>
+
+  <!-- Fallback meta refresh (for browsers with JS disabled) -->
+  <meta http-equiv="refresh" content="3;url=pageA.html" />
+
+  <style>
+    body {
+      font-family: system-ui, Segoe UI, Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: radial-gradient(circle at top left, #111827, #030712);
+      color: #f3f4f6;
+    }
+    .box {
+      text-align: center;
+      padding: 24px 28px;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    h1 {
+      margin: 0 0 8px;
+      color: #60a5fa;
+    }
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #60a5fa;
+      margin-left: 6px;
+      vertical-align: middle;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0.2; }
+    }
+    small {
+      color: #9ca3af;
+      display: block;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Redirecting...</h1>
+    <p>Going to <strong>Page A</strong> in <span id="count">3</span>s<span class="dot"></span></p>
+    <small>If it doesn't redirect, click <a href="pageA.html">here</a>.</small>
+  </div>
+
+  <script>
+    const delay = 0;
+    let remaining = delay;
+    const counter = document.getElementById('count');
+
+    const tick = () => {
+      remaining -= 1;
+      counter.textContent = remaining;
+      if (remaining <= 0) {
+        location.replace('pageA.html'); // avoids growing history
+      }
+    };
+
+    counter.textContent = remaining;
+    setTimeout(() => {
+      tick();
+      const interval = setInterval(() => {
+        if (remaining <= 1) clearInterval(interval);
+        tick();
+      }, 1000);
+    }, 1000);
+  </script>
+</body>
+</html>

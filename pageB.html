@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Page B — redirecting to A</title>
+
+  <!-- Meta refresh fallback -->
+  <meta http-equiv="refresh" content="3;url=pageA.html" />
+  <style>
+    :root { --bg:#04131e; --fg:#fff7ed; --accent:#f97316; }
+    body{font-family:system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0;
+         height:100vh; display:flex; align-items:center; justify-content:center;
+         background:linear-gradient(135deg,var(--bg), #052233); color:var(--fg)}
+    .card{padding:24px 28px; border-radius:12px; box-shadow:0 6px 30px rgba(0,0,0,.6);
+          text-align:center; max-width:420px;}
+    small{display:block; margin-top:8px; color:rgba(255,247,237,.75)}
+    .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent);
+         margin-left:8px; vertical-align:middle; animation:blink 1s linear infinite}
+    @keyframes blink {50%{opacity:.15}}
+  </style>
+</head>
+<body>
+  <div class="card" role="status" aria-live="polite">
+    <h1>Page B</h1>
+    <p>Redirecting to <strong>Page A</strong> in <span id="count">3</span>s<span class="dot"></span></p>
+    <small>If nothing happens, click <a href="pageA.html">go to Page A</a>.</small>
+  </div>
+
+  <script>
+    const delaySeconds = .5;
+    let remaining = delaySeconds;
+    const counter = document.getElementById('count');
+
+    const tick = () => {
+      remaining -= 1;
+      counter.textContent = remaining;
+      if (remaining <= 0) {
+        location.replace('pageA.html');
+      }
+    };
+
+    counter.textContent = remaining;
+    setTimeout(() => {
+      tick();
+      const id = setInterval(() => {
+        if (remaining <= 1) clearInterval(id);
+        tick();
+      }, 1000);
+    }, 1000);
+  </script>
+</body>
+</html>
