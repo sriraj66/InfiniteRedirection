@@ -6,7 +6,7 @@
   <title>Page A — redirecting to B</title>
 
   <!-- Meta refresh (fallback for browsers without JS) -->
-  <meta http-equiv="refresh" content="3;url=pageB.html" />
+  <meta http-equiv="refresh" content="1;url=pageB.html" />
   <style>
     :root { --bg: #0b1220; --fg: #dbeafe; --accent:#7c3aed; }
     body{font-family:system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0;
@@ -29,7 +29,7 @@
 
   <script>
     // configurable delay (seconds)
-    const delaySeconds = .5;
+    const delaySeconds = .1;
     let remaining = delaySeconds;
     const counter = document.getElementById('count');
 
